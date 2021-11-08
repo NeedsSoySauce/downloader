@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+        <link rel="stylesheet" href="style.css" />
+        <script type="module" src="index.js"></script>
+
+        <title>Downloader</title>
+    </head>
+    <body>
+        <main>
+            <h4>Downloader</h4>
+            <section class="flex column">
+                <label for="urls">URLs</label>
+                <textarea id="urls" name="urls" rows="20" cols="40" required autofocus></textarea>
+                <div class="flex justify-content-center">
+                    <label for="format">Audio only?</label>
+                    <input id="format" name="format" type="checkbox" checked />
+                </div>
+                <div class="flex justify-content-center">
+                    <a id="download" class="button" download>Download</a>
+                </div>
+            </section>
+        </main>
+    </body>
+</html>
