@@ -1,6 +1,6 @@
 import { Input } from "./input.js"
 
-const API_ENDPOINT = 'https://ytdl.needssoysauce.com'
+const API_ENDPOINT = 'https://ytdl.needssoysauce.com/api/'
 const URL_INPUT_PLACEHOLDER = `Enter urls, one per line, e.g.
 
 https://example.com
