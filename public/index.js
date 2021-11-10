@@ -1,7 +1,7 @@
 import { Input } from "./input.js"
 
 const API_ENDPOINT = 'https://ytdl.needssoysauce.com/api/'
-const WEBSOCKET_ENDPOINT = 'ws://ytdl.needssoysauce.com/api/'
+const WEBSOCKET_ENDPOINT = 'wss://ytdl.needssoysauce.com/api/'
 const URL_INPUT_PLACEHOLDER = `Enter urls, one per line, e.g.
 
 https://example.com
@@ -60,23 +60,32 @@ const setupDownloadButton = (input) => {
     updateHref(input.urls, input.format)
 }
 
+const setupWebSocket = (url = WEBSOCKET_ENDPOINT) => {
+    const socket = new WebSocket(url)
+
+    socket.addEventListener('open', (event) => {
+        socket.send(`WebSocket opened with ${url}`)
+    });
+
+    socket.addEventListener('message', (event) => {
+        console.log(`WebSocket message from ${url}: ${event.data}`)
+    });
+
+    socket.addEventListener('close', () => {
+        console.log(`WebSocket closed with ${url}`)
+    })
+
+    socket.addEventListener('error', (event) => {
+        console.log(`WebSocket error with ${url}`, event)
+    })
+}
+
 const main = () => {
     const input = new Input()
+    setupWebSocket()
     setupUrlsTextArea(input)
     setupFormatCheckbox(input)
     setupDownloadButton(input)
-
-    const socket = new WebSocket(WEBSOCKET_ENDPOINT)
-
-    // Connection opened
-    socket.addEventListener('open', function (event) {
-        socket.send('Hello Server!');
-    });
-
-    // Listen for messages
-    socket.addEventListener('message', function (event) {
-        console.log('Message from server ', event.data);
-    });
 }
 
 document.addEventListener("DOMContentLoaded", main)
