@@ -1,6 +1,7 @@
 import { Input } from "./input.js"
 
 const API_ENDPOINT = 'https://ytdl.needssoysauce.com/api/'
+const WEBSOCKET_ENDPOINT = 'ws://ytdl.needssoysauce.com/api/'
 const URL_INPUT_PLACEHOLDER = `Enter urls, one per line, e.g.
 
 https://example.com
@@ -64,6 +65,18 @@ const main = () => {
     setupUrlsTextArea(input)
     setupFormatCheckbox(input)
     setupDownloadButton(input)
+
+    const socket = new WebSocket(WEBSOCKET_ENDPOINT)
+
+    // Connection opened
+    socket.addEventListener('open', function (event) {
+        socket.send('Hello Server!');
+    });
+
+    // Listen for messages
+    socket.addEventListener('message', function (event) {
+        console.log('Message from server ', event.data);
+    });
 }
 
 document.addEventListener("DOMContentLoaded", main)
