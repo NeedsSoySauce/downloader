@@ -1,4 +1,5 @@
 import { Input } from "./input.js"
+import { DownloadService } from "./download.js"
 
 const API_ENDPOINT = 'https://ytdl.needssoysauce.com/api/'
 const WEBSOCKET_ENDPOINT = 'wss://ytdl.needssoysauce.com/api/'
@@ -60,29 +61,15 @@ const setupDownloadButton = (input) => {
     updateHref(input.urls, input.format)
 }
 
-const setupWebSocket = (url = WEBSOCKET_ENDPOINT) => {
-    const socket = new WebSocket(url)
-
-    socket.addEventListener('open', (event) => {
-        socket.send(`WebSocket opened with ${url}`)
-    });
-
-    socket.addEventListener('message', (event) => {
-        console.log(`WebSocket message from ${url}: ${event.data}`)
-    });
-
-    socket.addEventListener('close', () => {
-        console.log(`WebSocket closed with ${url}`)
-    })
-
-    socket.addEventListener('error', (event) => {
-        console.log(`WebSocket error with ${url}`, event)
-    })
+const setupDownloadService = (url = WEBSOCKET_ENDPOINT) => {
+    const service = new DownloadService(url)
+    
+    return service
 }
 
 const main = () => {
     const input = new Input()
-    setupWebSocket()
+    setupDownloadService()
     setupUrlsTextArea(input)
     setupFormatCheckbox(input)
     setupDownloadButton(input)
