@@ -10,7 +10,7 @@ https://example.com
 `
 
 const createDownloadUrl = (urls, format = 'audio') => {
-    const qs = urls.map(url => `url=${url}`).join('&')
+    const qs = urls.map(url => `url=${encodeURIComponent(url)}`).join('&')
     return `${API_ENDPOINT}?format=${format}&${qs}`;
 }
 
